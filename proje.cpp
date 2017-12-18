@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <cstring>
 #include <fstream>
+#include <time.h>
+#include <unistd.h>
 
 using namespace std;
 
@@ -10,6 +12,7 @@ int bruteExecutionCounter = 0;
 int horspoolExecutionCounter = 0;
 
 int HorspoolMatch(int textLength,int patternLength,char patternArray[],char textArray[]){
+
     clock_t t;
     int shiftArray[300];
     t = clock();
@@ -36,8 +39,9 @@ int HorspoolMatch(int textLength,int patternLength,char patternArray[],char text
         if(matchedChars == patternLength){
         	found = true;
         	t = clock() - t;
-            cout<< "----- Found at :"<< tempNumber - patternLength<<endl;
-   	     	std::cout << "----- Horspool executed : " << horspoolExecutionCounter <<" number of operations" <<"in"<<t<<"sec"<<'\n';
+            cout<< "------------ Horspool algorithm found requested pattern at step"<< tempNumber - patternLength<<endl;
+   	     	std::cout << "------------ Horspool algorithm executed : " << horspoolExecutionCounter <<" number of operations" <<" in "<<t<<" sec"<<'\n';
+
             return tempNumber - patternLength + 1;
         }else{
             tempNumber = tempNumber + shiftArray[textArray[tempNumber]];
@@ -64,8 +68,9 @@ int BruteMatch(int textLength,int patternLength,char patternArray[],char textArr
         }
         if(j == patternLength){
         	t = clock()- t;
-        	cout<<"-----Found At Step "<<i-1<<endl;
-            cout << "----- Brute Force executed " << bruteExecutionCounter <<" number of operations in "<<t<<"sec"<< '\n';
+        	cout<<"------------ Brute Force algorithm found requested pattern at step "<<i-1<<endl;
+            cout << "------------ Brute Force algorithm executed " << bruteExecutionCounter <<" number of operations in "<<t<<" sec"<< '\n';
+
             found = true;
             break;
         }
@@ -73,65 +78,88 @@ int BruteMatch(int textLength,int patternLength,char patternArray[],char textArr
 	if(found==false){
     	cout<<"Not Found";
 	}
+    return 0;
 }
 
 int main()
 {
-	string text;
+    int choise = 10;
+    unsigned int microseconds = 1500000;
 
-    ifstream infile;
-	infile.open ("the_truman_show_script.txt");
-        while(!infile.eof())
-        {
-	        getline(infile, text);
+    while (!(choise == 0)) {
+
+        string text;
+
+        ifstream infile;
+        infile.open ("the_truman_show_script.txt");
+            while(!infile.eof())
+            {
+                getline(infile, text);
+            }
+        infile.close();
+        string pattern = "";
+        char textArray[100000];
+        int textLength = 0;
+        textLength = text.length();
+        strcpy(textArray, text.c_str());
+        std::cout << "Choose one of the following" << '\n';
+        std::cout << '\n';
+        std::cout << "(1) Brute Force String Matching" << std::endl;
+        std::cout << "(2) Horspool's String Matching" << std::endl;
+        std::cout << "(3) Compare Brute Force Algorithm and Horspool Algorithm" << std::endl;
+        std::cout << "(0) Exit" << std::endl;
+        std::cout << '\n';
+        std::cout << "Type in your selected number: ";
+        std::cin >> choise;
+
+        if(choise == 0){
+            break;
         }
-	infile.close();
-    string pattern = "";
-    char textArray[100000];
-    int textLength = 0;
-    textLength = text.length();
-    strcpy(textArray, text.c_str());
-    int choise = 0;
-    std::cout << "(1) Brute Force String Matching" << std::endl;
-    std::cout << "(2) Horspool's String Matching" << std::endl;
-    std::cout << "(3) Compare brute force and horspool" << std::endl;
-    std::cout << "(0) Exit" << std::endl;
-    std::cin >> choise;
-    int patternLength = 0;
 
-	cout << "Type pattern" << endl;
-	cin >> pattern;
-	char patternArray[100000];
-	strcpy(patternArray, pattern.c_str());
+        int patternLength = 0;
 
-	patternLength = pattern.length();
+        cout << "Type pattern: ";
+        cin >> pattern;
+        char patternArray[100000];
+        strcpy(patternArray, pattern.c_str());
+
+        patternLength = pattern.length();
 
 
-    if(choise == 1){
-        BruteMatch(textLength,patternLength,patternArray,textArray);
+        if(choise == 1){
+            BruteMatch(textLength,patternLength,patternArray,textArray);
+
+            std::cout << '\n';
+            std::cout << "You are being redirected to main menu..." << '\n';
+            usleep(microseconds);
+            std::cout << '\n';
+        }
+
+
+        if(choise == 2){
+            HorspoolMatch(textLength,patternLength,patternArray,textArray);
+
+            std::cout << '\n';
+            std::cout << "You are being redirected to main menu..." << '\n';
+            usleep(microseconds);
+            std::cout << '\n';
+        }
+
+
+        if(choise == 3){
+            BruteMatch(textLength,patternLength,patternArray,textArray);
+            std::cout << '\n';
+            HorspoolMatch(textLength,patternLength,patternArray,textArray);
+
+            std::cout << '\n';
+            std::cout << "You are being redirected to main menu..." << '\n';
+            usleep(microseconds);
+            std::cout << '\n';
+        }
+
+        if(!(choise == 0) && !(choise == 1) && !(choise == 2) && !(choise == 3)){
+            cout << "You choosed unavaiable number, please run the code again!" << endl;
+        }
     }
-
-
-    if(choise == 2){
-        HorspoolMatch(textLength,patternLength,patternArray,textArray);
-    }
-
-
-    if(choise == 3){
-    	BruteMatch(textLength,patternLength,patternArray,textArray);
-    	HorspoolMatch(textLength,patternLength,patternArray,textArray);
-
-    }
-
-
-    if(choise == 0){
-        return 0;
-    }
-    if(!(choise == 0) && !(choise == 1) && !(choise == 2) && !(choise == 3)){
-        cout << "You choosed unavaiable number, please run the code again!" << endl;
-    }
-
-
-
     return 0;
 }
