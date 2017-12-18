@@ -50,6 +50,7 @@ int HorspoolMatch(int textLength,int patternLength,char patternArray[],char text
     if(found==false){
     	cout<<"Not found";
 	}
+    int horspoolExecutionCounter = 0;
     return 0;
 }
 
@@ -78,6 +79,7 @@ int BruteMatch(int textLength,int patternLength,char patternArray[],char textArr
 	if(found==false){
     	cout<<"Not Found";
 	}
+    int bruteExecutionCounter = 0;
     return 0;
 }
 
