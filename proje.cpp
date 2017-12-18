@@ -40,7 +40,7 @@ int HorspoolMatch(int textLength,int patternLength,char patternArray[],char text
         	found = true;
         	t = clock() - t;
             cout<< "------------ Horspool algorithm found requested pattern at step "<< tempNumber - patternLength<<endl;
-   	     	std::cout << "------------ Horspool algorithm executed : " << horspoolExecutionCounter <<" number of operations" <<" in "<<t<<" sec"<<'\n';
+   	     	std::cout << "------------ Horspool algorithm executed : " << horspoolExecutionCounter <<" number of operations" <<" in "<<t<<" microseconds"<<'\n';
 
             return tempNumber - patternLength + 1;
         }else{
@@ -70,7 +70,7 @@ int BruteMatch(int textLength,int patternLength,char patternArray[],char textArr
         if(j == patternLength){
         	t = clock()- t;
         	cout<<"------------ Brute Force algorithm found requested pattern at step "<<i-1<<endl;
-            cout << "------------ Brute Force algorithm executed " << bruteExecutionCounter <<" number of operations in "<<t<<" sec"<< '\n';
+            cout << "------------ Brute Force algorithm executed " << bruteExecutionCounter <<" number of operations in "<<t<<" microseconds"<< '\n';
 
             found = true;
             break;
