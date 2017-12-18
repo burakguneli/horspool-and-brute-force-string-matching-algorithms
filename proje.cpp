@@ -39,7 +39,7 @@ int HorspoolMatch(int textLength,int patternLength,char patternArray[],char text
         if(matchedChars == patternLength){
         	found = true;
         	t = clock() - t;
-            cout<< "------------ Horspool algorithm found requested pattern at step"<< tempNumber - patternLength<<endl;
+            cout<< "------------ Horspool algorithm found requested pattern at step "<< tempNumber - patternLength<<endl;
    	     	std::cout << "------------ Horspool algorithm executed : " << horspoolExecutionCounter <<" number of operations" <<" in "<<t<<" sec"<<'\n';
 
             return tempNumber - patternLength + 1;
@@ -111,6 +111,10 @@ int main()
         std::cout << '\n';
         std::cout << "Type in your selected number: ";
         std::cin >> choise;
+        if(!(choise == 0) && !(choise == 1) && !(choise == 2) && !(choise == 3)){
+            cout << "You choosed unavaiable number, please run the code again!" << endl;
+            break;
+        }
 
         if(choise == 0){
             break;
@@ -155,10 +159,6 @@ int main()
             std::cout << "You are being redirected to main menu..." << '\n';
             usleep(microseconds);
             std::cout << '\n';
-        }
-
-        if(!(choise == 0) && !(choise == 1) && !(choise == 2) && !(choise == 3)){
-            cout << "You choosed unavaiable number, please run the code again!" << endl;
         }
     }
     return 0;
